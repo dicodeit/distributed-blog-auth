@@ -1,20 +1,18 @@
-import { DataSource } from "typeorm";
-import path from 'path';
-import { fileURLToPath } from "url";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import { CreateUsersTable1741463724551 } from "../database/migrations/1741463724551-CreateUsersTable";
+import { DataSource } from "typeorm";
+import { env, ENV_VARIABLES } from "./env";
 
 export const DefaultDataSource = new DataSource({
-  type: "postgres",
-  host: "localhost",
-  port: 5432,
-  username: "postgres",
-  password: "password",
-  database: "test",
+  type: 'postgres',
+  host: env<string>(ENV_VARIABLES.DATABASE_HOST, 'localhost'),
+  port: env<number>(ENV_VARIABLES.DATABASE_PORT, 5432),
+  username: env<string>(ENV_VARIABLES.DATABASE_USERNAME, 'postgres'),
+  password: env<string>(ENV_VARIABLES.DATABASE_PASSWORD, 'password'),
+  database: env<string>(ENV_VARIABLES.DATABASE_HOST, 'auth'),
   synchronize: true,
   logging: false,
-  entities: [path.resolve(__dirname, "../src/**/*.entity.{js,ts}")],
-  migrations: [path.resolve(__dirname, "../database/migrations/**/*.{js,ts}")],
+  entities: ["../**/*.entity.{js,ts}"],
+  migrations: [CreateUsersTable1741463724551],
   subscribers: [],
 });

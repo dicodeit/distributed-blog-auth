@@ -4,19 +4,19 @@
   "author": "dicodeit",
   "license": "ISC",
   "description": "",
-  "type": "module",
   "main": "src/index.ts",
   "scripts": {
-    "build": "pkgroll",
+    "build": "tsc && tsc-alias",
     "start": "node dist/index.js",
     "start:dev": "tsx watch src/index.ts",
     "migration:create": "typeorm migration:create ./database/migrations/$npm_config_name",
-    "migration:run": "typeorm migration:run -d ./config/data-source"
+    "migration:show": "typeorm-ts-node-commonjs migration:show -d ./src/config/data-source.ts",
+    "migration:run": "typeorm-ts-node-commonjs migration:run -d ./src/config/data-source.ts"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
     "@types/node": "^22.13.9",
-    "pkgroll": "^2.11.2",
+    "tsc-alias": "^1.8.11",
     "tsx": "^4.19.3",
     "typescript": "^5.8.2"
   },
@@ -25,11 +25,5 @@
     "pg": "^8.13.3",
     "reflect-metadata": "^0.2.2",
     "typeorm": "^0.3.21"
-  },
-  "exports": {
-    "import": {
-      "types": "./dist/index.d.mts",
-      "default": "./dist/index.mjs"
-    }
   }
 }
