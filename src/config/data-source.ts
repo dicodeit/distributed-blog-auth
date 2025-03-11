@@ -9,7 +9,7 @@ export const DefaultDataSource = new DataSource({
   port: env<number>(ENV_VARIABLES.DATABASE_PORT, 5432),
   username: env<string>(ENV_VARIABLES.DATABASE_USERNAME, 'postgres'),
   password: env<string>(ENV_VARIABLES.DATABASE_PASSWORD, 'password'),
-  database: env<string>(ENV_VARIABLES.DATABASE_HOST, 'auth'),
+  database: env<string>(ENV_VARIABLES.DATABASE_NAME, 'auth'),
   synchronize: true,
   logging: false,
   entities: ["../**/*.entity.{js,ts}"],

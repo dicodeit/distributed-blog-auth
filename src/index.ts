@@ -7,8 +7,10 @@ import { DefaultDataSource } from '@config/data-source';
 import { database } from '@config/database';
 import { USERS_ROUTES_PREFIX, usersRouter } from '@users/users.routes';
 import { env, ENV_VARIABLES } from '@config/env';
+import { logger } from '@config/logger';
 
 const app = express();
+app.use(logger());
 app.use(express.json());
 
 app.use(USERS_ROUTES_PREFIX, usersRouter);
