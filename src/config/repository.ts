@@ -11,14 +11,14 @@ export class BaseRepository<Entity extends ObjectLiteral> extends Repository<Ent
   }
 }
 
-export const repository = <Entity extends ObjectLiteral>(
-  RepositoryClass: new (database: Database) => BaseRepository<Entity>,
-  databaseKey: DatabaseKeys = 'default'
-): BaseRepository<Entity> => {
+export const repository = <T extends BaseRepository<any>>(
+  RepositoryClass: new (...args: any[]) => T,
+  databaseKey: DatabaseKeys = 'default',
+): T => {
   let repositories = null;
 
   if (!dbRepositories.has(databaseKey)) {
-    repositories = new Map<EntityTarget<ObjectLiteral>, BaseRepository<any>>;
+    repositories = new Map<EntityTarget<ObjectLiteral>, T>;
     dbRepositories.set(databaseKey, repositories);
   }
 
