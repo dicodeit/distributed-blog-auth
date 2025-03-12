@@ -1,7 +1,7 @@
 import { EntityTarget, ObjectLiteral, Repository } from "typeorm";
 import { database, Database, DatabaseKeys } from "src/config/database";
 
-type RepositoriesType = Map<EntityTarget<ObjectLiteral>, BaseRepository<any>>;
+type RepositoriesType = Map<string, BaseRepository<any>>;
 
 const dbRepositories = new Map<DatabaseKeys, RepositoriesType>;
 
@@ -18,20 +18,21 @@ export const repository = <T extends BaseRepository<any>>(
   let repositories = null;
 
   if (!dbRepositories.has(databaseKey)) {
-    repositories = new Map<EntityTarget<ObjectLiteral>, T>;
+    repositories = new Map<string, T>;
     dbRepositories.set(databaseKey, repositories);
   }
 
-  let repository = null;
+  const RepositoryClassName = RepositoryClass.name;
+  let repository = repositories?.get(RepositoryClassName);
 
-  if (!repositories?.has(RepositoryClass)) {
+  if (!repository) {
     const db = database(databaseKey);
     repository = new RepositoryClass(db);
-    repositories?.set(RepositoryClass, repository);
+    repositories?.set(RepositoryClassName, repository);
   }
 
-  if (repository === null) {
-    throw Error(`Unable to create repository for class ${RepositoryClass.name}`);
+  if (!repository) {
+    throw Error(`Unable to create repository for class ${RepositoryClassName}`);
   }
 
   return repository;

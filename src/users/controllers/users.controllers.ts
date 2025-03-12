@@ -6,9 +6,7 @@ export class UsersController extends BaseController {
   }
 
   public createUser(req, res) {
-    if (!req.body) {
 
-    }
   }
 }
 

@@ -53,7 +53,7 @@ export const database = (databaseKey: DatabaseKeys, datasource: DataSource | nul
   const db = databases[databaseKey];
 
   if (db === null) {
-    throw new Error('Database is needed to perform operations');
+    throw new Error(`Unable to set database for ${databaseKey} connection`);
   }
 
   return db;
