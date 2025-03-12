@@ -6,7 +6,7 @@ export class BaseService {
 
 export const service = <T extends BaseService>(
   ServiceClass: new (...args: any[]) => T
-) => {
+): T => {
   const ServiceClassName = ServiceClass.name;
   let service = services.get(ServiceClassName);
 
@@ -19,5 +19,5 @@ export const service = <T extends BaseService>(
     throw Error(`Unable to create service for class ${ServiceClassName}`);
   }
 
-  return service;
+  return service as T;
 }
