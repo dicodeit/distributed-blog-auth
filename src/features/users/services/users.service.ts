@@ -1,7 +1,7 @@
 import { repository } from "@config/repository";
 import { BaseService } from "@config/service";
-import { User } from '@users/entities/user.entity';
-import { UsersRepository } from "@users/repositories/users.repository";
+import { User } from '@features/users/entities/user.entity';
+import { UsersRepository } from "@features/users/repositories/users.repository";
 
 export class UsersService extends BaseService {
   private readonly usersRepository: UsersRepository;
@@ -11,14 +11,14 @@ export class UsersService extends BaseService {
     this.usersRepository = repository(UsersRepository);
   }
 
-  public async createUser(payload: User): Promise<[Error | null, User | null]> {
+  public createUser = async (payload: User): Promise<[User | null, Error | null,]> => {
     const [user, error] = await this.usersRepository.saveUser(payload);
 
     if (error) {
       return [null, error]
     }
 
-    return user.id;
+    return [user, null];
   }
 }
 

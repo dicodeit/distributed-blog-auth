@@ -1,7 +1,8 @@
+import { DefaultDataSource } from '@config/data-source';
 import { DataSource, EntityManager } from "typeorm";
 
 type InitializeActions = {
-  success?: () => void,
+  success?: () => Promise<void>,
   error?: (err: Error) => void
 }
 
@@ -18,7 +19,8 @@ export class Database {
     try {
       await this._datasource.initialize();
       this._manager = this._datasource.manager;
-      actions?.success?.();
+      await actions?.success?.();
+      console.log("Database initialized successfully");
     } catch (err) {
       console.error("Unable to initialize datasource:", err);
       actions?.error?.(err as Error);
@@ -45,7 +47,11 @@ export const databases = {
 
 export type DatabaseKeys = keyof typeof databases;
 
-export const database = (databaseKey: DatabaseKeys, datasource: DataSource | null = null): Database => {
+const datasources: Record<DatabaseKeys, DataSource> = {
+  default: DefaultDataSource
+}
+
+export const database = (databaseKey: DatabaseKeys, datasource: DataSource | null = null): Database | null => {
   if (datasource !== null) {
     databases[databaseKey] = new Database(datasource);
   }
