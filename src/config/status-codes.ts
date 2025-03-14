@@ -1,0 +1,1 @@
+export const STATUS_CODE_BAD_REQUEST = 400;

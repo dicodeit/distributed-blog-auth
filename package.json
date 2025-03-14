@@ -14,14 +14,19 @@
     "migration:run": "typeorm-ts-node-commonjs migration:run -d ./src/config/data-source.ts"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
+    "@types/morgan": "^1.9.9",
     "@types/node": "^22.13.9",
     "tsc-alias": "^1.8.11",
     "tsx": "^4.19.3",
     "typescript": "^5.8.2"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
     "morgan": "^1.10.0",
     "pg": "^8.13.3",
     "reflect-metadata": "^0.2.2",

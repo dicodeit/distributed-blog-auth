@@ -29,16 +29,6 @@ morgan.format('local', (tokens: any, req: any, res: { headersSent: string; _head
   return formatter(tokens, req, res);
 });
 
-// const formatter = (tokens, req, res) => {
-//   return [
-//     tokens.method(req),
-//     tokens.url(req),
-//     tokens.status(req, res),
-//     tokens.req(req, res, 'content-length'), '-',
-//     tokens['response-time'](req, res, 2), 'ms'
-//   ];
-// }
-
 export const logger = () => {
   return morgan('local');
 }

@@ -37,8 +37,8 @@
       "@config/*": [
         "src/config/*"
       ],
-      "@users/*": [
-        "src/users/*"
+      "@features/*": [
+        "src/features/*"
       ],
       "@database/*": [
         "src/database/*"
