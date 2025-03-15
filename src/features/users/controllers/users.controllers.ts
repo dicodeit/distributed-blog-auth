@@ -24,9 +24,9 @@ export class UsersController extends BaseController {
         error: error.message
       });
 
-      return res.status(httpError.statusCode).json(httpError);
+      res.status(httpError.statusCode).json(httpError);
     }
 
-    return res.status(201).json({ id: user!.id });
+    res.status(201).json({ id: user!.id });
   }
 }

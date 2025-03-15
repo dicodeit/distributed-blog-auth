@@ -22,16 +22,16 @@ app.use(rateLimit({
   standardHeaders: 'draft-8', // draft-6: `RateLimit-*` headers; draft-7 & draft-8: combined `RateLimit` header
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
   // store: ... , // Redis, Memcached, etc. See below.
-}))
+}));
 app.use(express.json());
 app.use(logger());
 app.use(helmet());
-app.use(cors())
+app.use(cors());
 
 defaultDatabase?.initialize({
   success: async () => {
     // Lazy load usersRouter AFTER database is ready
-    const { USERS_ROUTES_PREFIX, usersRouter } = await import("src/features/users/users.routes");
+    const { USERS_ROUTES_PREFIX, usersRouter } = await import("@features/users/users.routes");
     app.use(USERS_ROUTES_PREFIX, usersRouter);
 
     app.listen(PORT, (err) => {
